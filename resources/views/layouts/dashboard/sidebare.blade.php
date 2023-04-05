@@ -12,7 +12,23 @@
 
 
 
-        {{-- @isset(auth()->user()->role->permission['permission']['department']['list'])
+       
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Role" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Role</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Role" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@route('role.index')">
+                            <i class="bi bi-circle"></i><span>Role</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Department Nav -->
+       
+
+         {{-- @isset(auth()->user()->role->permission['permission']['department']['list'])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#department" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
