@@ -99,11 +99,13 @@
     <!-- ======= Sidebar ======= -->
     @include('layouts.dashboard.sidebare')
     <!-- End Sidebar-->
-
-    <main id="main" class="main">
+    <!-- Page Content -->
+    <main>
         {{ $slot }}
     </main>
+    @stack('modals')
 
+    @livewireScripts
     <!-- End #main -->
 
     <!-- ======= Footer ======= -->
