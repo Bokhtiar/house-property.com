@@ -8,11 +8,7 @@ use App\Services\RoleServices;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /* Display a listing of the resource. */
     public function index()
     {
         try {
@@ -23,47 +19,27 @@ class RoleController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /* Store a newly created resource in storage.*/
     public function store(Request $request)
     {
-        //
+        try {
+            RoleServices::RoleCreate($request->all());
+            return back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
+    /* Show the form for editing the specified resource. */
+    public function edit($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
-    {
-        //
+        try {
+            $edit = RoleServices::RoleFindByID($id);
+            $roles = RoleServices::RoleList();
+            return view('modules.role.index', compact('edit', 'roles'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -75,7 +51,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        
     }
 
     /**

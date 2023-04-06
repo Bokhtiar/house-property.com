@@ -1,36 +1,34 @@
 <?php 
 namespace App\Services;
 
-use App\Models\User;
+use App\Models\Role;
 
 class RoleServices{
     public static function RoleList(){
-        return User::all();
+        return Role::all();
     }
 
-    // /* store documents */
-    // public static function PostStoreDocument($request, $id=null){
-    //     return array(
-    //         'title' => $request->title,
-    //         'short_des' => $request->short_des,
-    //         'des' => $request->des,
-    //     );
-    // }
+    /* store documents */
+    public static function RoleStoreDocument($request, $id=null){
+        return array(
+            'name' => $request['name']
+        );
+    }
 
-    // /* store document create */
-    // public static function PostCreate($request){
-    //     return Post::create(PostService::PostStoreDocument($request));
-    // }
+     /* store document create */
+     public static function RoleCreate($request){
+         return Role::create(RoleServices::RoleStoreDocument($request));
+     }
 
-    // /* findByID */
-    // public static function PostFindByID($id){
-    //     return Post::find($id);
-    // }
+    /* findByID */
+    public static function RoleFindByID($id){
+        return Role::find($id);
+    }
 
-    // /* resource updated */
-    // public static function PostUpdate($request, $id){
-    //     $post = PostService::PostFindByID($id);
-    //     return $post->update(PostService::PostStoreDocument($request));
-    // }
+    /* resource updated */
+    public static function RoleUpdate($request, $id){
+        $post = RoleServices::RoleFindByID($id);
+        return $post->update(RoleServices::RoleStoreDocument($request));
+    }
 }
 ?>

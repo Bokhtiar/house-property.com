@@ -11,13 +11,13 @@
         'label' => 'Name.',
         'type' => 'text',
         'name' => 'name',
-        'placeholder' => 'employee',
+        'placeholder' => 'admin',
         'required' => true,
         'value' => @$edit->name,
     ])
     @endcomponent
 
-    @component('components.primary-button', ['name' => @$edit ? 'Update employee' : 'Create employee'])
+    @component('components.primary-button', ['name' => @$edit ? 'Update role' : 'Create role'])
     @endcomponent
 
 
