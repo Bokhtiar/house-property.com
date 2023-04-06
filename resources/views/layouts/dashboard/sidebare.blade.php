@@ -26,6 +26,20 @@
                     </li>
                 </ul> 
             </li><!-- End Department Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Permission" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Permission</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Permission" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@route('permission.index')">
+                            <i class="bi bi-circle"></i><span>Permission</span>
+                        </a>
+                    </li>
+                </ul> 
+            </li><!-- End Department Nav -->
        
 
          {{-- @isset(auth()->user()->role->permission['permission']['department']['list'])
