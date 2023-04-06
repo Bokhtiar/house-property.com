@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         
-        <h5 class="card-title">{{ $title }} </h5>
+        <h5 class="card-title">{{ @$title }} </h5>
         <!-- Table with stripped rows -->
         <table class="table datatable">
             <thead>

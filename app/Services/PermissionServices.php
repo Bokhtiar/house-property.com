@@ -12,7 +12,7 @@ class PermissionServices {
     }
     
     /* new store document */
-    public function PermissionStore($request)
+    public static function PermissionStore($request)
     {
         return Permission::create($request->all());
     }
