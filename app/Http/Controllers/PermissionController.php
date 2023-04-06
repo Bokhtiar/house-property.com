@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Services\PermissionServices;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -14,7 +15,12 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $permissions =  PermissionServices::PermissionList();
+            return view('modules.permission.index', compact('permissions'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
