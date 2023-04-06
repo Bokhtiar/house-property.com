@@ -23,7 +23,7 @@ class RoleController extends Controller
     {
         try {
             RoleServices::RoleCreate($request->all());
-            return back();
+            return back()->with('message','Data added Successfully');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -56,7 +56,7 @@ class RoleController extends Controller
     {
         try {
             RoleServices::RoleUpdate($request, $id);
-            return redirect()->route('role.index');
+            return redirect()->route('role.index')->with('info', 'Data updated');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -67,7 +67,7 @@ class RoleController extends Controller
     {
         try {
             RoleServices::RoleFindByID($id)->delete();
-            return redirect()->route('role.index');
+            return redirect()->route('role.index')->with('error','Are you sure you want to delete? ');
         } catch (\Throwable $th) {
             throw $th;
         }
