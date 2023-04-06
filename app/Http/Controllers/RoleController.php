@@ -15,8 +15,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-       $roles = RoleServices::RoleList();
-       dd($roles);
+        try {
+            $roles = RoleServices::RoleList();
+            return view('modules.role.index', compact('roles'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

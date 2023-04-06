@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <x-notification-component></x-notification-component>
+        
         <h5 class="card-title">{{ $title }} </h5>
         <!-- Table with stripped rows -->
         <table class="table datatable">

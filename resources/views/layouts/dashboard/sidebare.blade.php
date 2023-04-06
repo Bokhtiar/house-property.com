@@ -24,7 +24,7 @@
                             <i class="bi bi-circle"></i><span>Role</span>
                         </a>
                     </li>
-                </ul>
+                </ul> 
             </li><!-- End Department Nav -->
        
 

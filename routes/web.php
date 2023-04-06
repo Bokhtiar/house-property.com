@@ -19,5 +19,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
+/* roles */
 Route::resource('role', RoleController::class);
