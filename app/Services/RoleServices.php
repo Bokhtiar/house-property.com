@@ -5,7 +5,7 @@ use App\Models\Role;
 
 class RoleServices{
     public static function RoleList(){
-        return Role::all();
+        return Role::latest()->get();
     }
 
     /* store documents */

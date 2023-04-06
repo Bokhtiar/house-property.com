@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Services\RoleServices;
 
@@ -30,6 +29,16 @@ class RoleController extends Controller
         }
     }
 
+    /* specific reosurce show */
+    public function show($id)
+    {
+        try {
+            return back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     /* Show the form for editing the specified resource. */
     public function edit($id)
     {
@@ -42,26 +51,25 @@ class RoleController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Role $role)
+    /* Update the specified resource in storage. */
+    public function update(Request $request, $id)
     {
-        
+        try {
+            RoleServices::RoleUpdate($request, $id);
+            return redirect()->route('role.index');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
+    /* Remove the specified resource from storage. */
+    public function destroy($id)
     {
-        //
+        try {
+            RoleServices::RoleFindByID($id)->delete();
+            return redirect()->route('role.index');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
