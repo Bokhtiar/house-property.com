@@ -27,5 +27,17 @@ Route::resource('role', RoleController::class);
 /* permission */
 Route::resource('permission', PermissionController::class);
 
-/* property */
 Route::resource('property', PropertyController::class);
+
+/* property */
+Route::prefix('property')->group(function () {
+    /*property first step*/ 
+    Route::get('/first/step', [PropertyController::class, 'first_step']);
+    Route::post('/first/step/store', [PropertyController::class, 'first_step_store']);
+    /*property second step*/ 
+    Route::get('/second/step', [PropertyController::class, 'second_step']);
+    Route::post('/second/step/store', [PropertyController::class, 'second_step_store']);
+
+});
+
+

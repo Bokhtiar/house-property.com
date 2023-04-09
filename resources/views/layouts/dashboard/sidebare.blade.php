@@ -48,7 +48,7 @@
                 <ul id="property" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                     <li>
-                        <a href="@route('property.create')">
+                        <a href="{{url('property/first/step')}}">
                             <i class="bi bi-circle"></i><span>Property</span>
                         </a>
                     </li>
