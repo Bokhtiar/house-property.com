@@ -19,6 +19,14 @@ class CreatePropertiesTable extends Migration
             $table->string('total_unit')->nullable();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
+            
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->longText('city')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->longText('address')->nullable();
+            $table->string('map_link')->nullable();
+
             $table->timestamps();
         });
     }

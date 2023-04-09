@@ -23,46 +23,93 @@
 
     {{-- property first step --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
-        <form action="" method="POST" enctype="multipart/form-data" class="form-group row">
+        <form action="{{url('property/second/step/store')}}" method="POST" enctype="multipart/form-data" class="form-group row">
             @csrf
             @method('POST')
-            
-            {{-- name --}}
-            <div class="col-sm-12 col-md-6 col-lg-6">
+
+            {{-- country --}}
+            <div class="col-sm-12 col-md-4 col-lg-4">
                 @component('components.input', [
                     'label' => 'country name.',
                     'type' => 'text',
-                    'name' => 'name',
-                    'placeholder' => 'property name',
+                    'name' => 'country',
+                    'placeholder' => 'bangladesh',
                     'required' => true,
-                    'value' => @$edit->name,
+                    'value' => @$edit->country,
                 ])
                 @endcomponent
             </div>
 
-            {{-- unit --}}
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            {{-- state --}}
+            <div class="col-sm-12 col-md-4 col-lg-4">
                 @component('components.input', [
-                    'label' => 'Property unit.',
-                    'type' => 'number',
-                    'name' => 'total_unit',
-                    'placeholder' => 'property number of unit',
+                    'label' => 'State.',
+                    'type' => 'text',
+                    'name' => 'state',
+                    'placeholder' => 'Dhaka',
                     'required' => true,
-                    'value' => @$edit->unit,
+                    'value' => @$edit->state,
                 ])
                 @endcomponent
             </div>
 
-            {{-- description --}}
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <label for="">Property description</label>
-                <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
+            {{-- state --}}
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                @component('components.input', [
+                    'label' => 'City.',
+                    'type' => 'text',
+                    'name' => 'city',
+                    'placeholder' => 'Saver',
+                    'required' => true,
+                    'value' => @$edit->city,
+                ])
+                @endcomponent
             </div>
+
+            {{-- state --}}
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                @component('components.input', [
+                    'label' => 'Zip code.',
+                    'type' => 'text',
+                    'name' => 'zip_code',
+                    'placeholder' => '3570',
+                    'required' => true,
+                    'value' => @$edit->zip_code,
+                ])
+                @endcomponent
+            </div>
+
+            {{-- state --}}
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                @component('components.input', [
+                    'label' => 'Address',
+                    'type' => 'text',
+                    'name' => 'address',
+                    'placeholder' => 'dottopara,saver,dhaka, bangladesh',
+                    'required' => true,
+                    'value' => @$edit->address,
+                ])
+                @endcomponent
+            </div>
+
+            {{-- map link --}}
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                @component('components.input', [
+                    'label' => 'Map link',
+                    'type' => 'text',
+                    'name' => 'map_link',
+                    'placeholder' => '',
+                    'required' => true,
+                    'value' => @$edit->map_link,
+                ])
+                @endcomponent
+            </div>
+
 
             {{-- button --}}
             <div class="d-flex ">
                 @component('components.primary-button', [
-                    'name' => 'Property information save',
+                    'name' => 'Location save && go to next',
                 ])
                 @endcomponent
             </div>

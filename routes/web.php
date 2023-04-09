@@ -37,7 +37,6 @@ Route::prefix('property')->group(function () {
     /*property second step*/ 
     Route::get('/second/step', [PropertyController::class, 'second_step']);
     Route::post('/second/step/store', [PropertyController::class, 'second_step_store']);
-
 });
 
 

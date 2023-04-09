@@ -21,7 +21,7 @@ class PropertyController extends Controller
     public function first_step()
     {
         try {
-            $edit = session()->get('properties');
+            $edit = session()->get('property_first_step');
             return view('modules.property.first_step_createUpdate', compact('edit'));
         } catch (\Throwable $th) {
             throw $th;
@@ -32,17 +32,17 @@ class PropertyController extends Controller
     public function first_step_store(Request $request)
     {
         try {
-            if (empty(session()->get('properties'))) {
+            if (empty(session()->get('property_first_step'))) {
                 $properties = new Property();
                 $properties->name = $request->name;
                 $properties->total_unit = $request->total_unit;
                 $properties->description = $request->description;
                 $properties->image = $request->image;
                 $properties->save();
-                session()->put('properties', $properties);
+                session()->put('property_first_step', $properties);
             } else {
-                $properties = session()->get('properties');
-                session()->put('properties', $properties);
+
+                session()->put('property_first_step', $properties);
             }
             return redirect('property/second/step')->with('message', 'Property information saved.');
         } catch (\Throwable $th) {
@@ -56,6 +56,30 @@ class PropertyController extends Controller
         try {
             $properties = session()->get('properties');
             return view('modules.property.second_step_createUpdate', compact('properties'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /* Display the specified resource. */
+    public function second_step_store(Request $request)
+    {
+        try {
+            if (empty(session()->get('property_second_step'))) {
+                $properties = new Property();
+                $properties->country = $request->country;
+                $properties->state = $request->state;
+                $properties->city = $request->city;
+                $properties->zip_code = $request->zip_code;
+                $properties->address = $request->address;
+                $properties->map_link = $request->map_link;
+                $properties->save();
+                session()->put('properties', $properties);
+            } else {
+                $properties = session()->get('properties');
+                session()->put('properties', $properties);
+            }
+            return redirect('property/second/step')->with('message', 'Property location saved.');
         } catch (\Throwable $th) {
             throw $th;
         }

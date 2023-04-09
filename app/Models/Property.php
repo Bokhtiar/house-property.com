@@ -16,5 +16,11 @@ class Property extends Model
         'total_unit',
         'description',
         'image',
+        'country',
+        'state',
+        'city',
+        'zip_code',
+        'address',
+        'map_link',
     ];
 }
