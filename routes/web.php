@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,6 @@ Route::resource('role', RoleController::class);
 
 /* permission */
 Route::resource('permission', PermissionController::class);
+
+/* property */
+Route::resource('property', PropertyController::class);

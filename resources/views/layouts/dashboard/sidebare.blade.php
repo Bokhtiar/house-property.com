@@ -40,6 +40,20 @@
                     </li>
                 </ul> 
             </li><!-- End Department Nav -->
+
+             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#property" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Property</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="property" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@route('property.create')">
+                            <i class="bi bi-circle"></i><span>Property</span>
+                        </a>
+                    </li>
+                </ul> 
+            </li><!-- End Department Nav -->
        
 
          {{-- @isset(auth()->user()->role->permission['permission']['department']['list'])
