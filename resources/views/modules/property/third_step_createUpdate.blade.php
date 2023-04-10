@@ -40,7 +40,7 @@
                         'type' => 'text',
                         'name' => 'unit_name[]',
                         'placeholder' => 'Unit A',
-                        'required' => true,
+                        'required' => false,
                         'value' => @$edit[$i]['unit_name'],
                     ])
                     @endcomponent
@@ -53,8 +53,8 @@
                         'type' => 'number',
                         'name' => 'bedroom[]',
                         'placeholder' => '0',
-                        'required' => true,
-                        'value' => @$edit[$i]['bedroom'],
+                        'required' => false,
+                        'value' => @$edit[$i]['bedroom'] ?? 0,
                     ])
                     @endcomponent
                 </div>
@@ -66,8 +66,8 @@
                         'type' => 'number',
                         'name' => 'baths[]',
                         'placeholder' => '0',
-                        'required' => true,
-                        'value' => @$edit[$i]['baths'],
+                        'required' => false,
+                        'value' => @$edit[$i]['baths'] ?? 0,
                     ])
                     @endcomponent
                 </div>
@@ -79,8 +79,8 @@
                         'type' => 'number',
                         'name' => 'kitchen[]',
                         'placeholder' => '0',
-                        'required' => true,
-                        'value' => @$edit[$i]['kitchen'],
+                        'required' => false,
+                        'value' => @$edit[$i]['kitchen'] ?? 0,
                     ])
                     @endcomponent
                 </div>

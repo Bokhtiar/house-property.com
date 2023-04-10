@@ -12,9 +12,9 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id('unit_id');
             $table->string('unit_name')->nullable();
-            $table->string('bedroom')->nullable();
-            $table->string('baths')->nullable();
-            $table->string('kitchen')->nullable();
+            $table->string('bedroom')->default(0);
+            $table->string('baths')->default(0);
+            $table->string('kitchen')->default(0);
             $table->string('property_id')->required();
             $table->timestamps();
         });

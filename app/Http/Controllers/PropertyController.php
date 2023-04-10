@@ -159,7 +159,7 @@ class PropertyController extends Controller
                     ]);
                 }
                 session()->put('property_third_step_value', $items);
-                return redirect('/property/third/step');
+                return redirect('/property/fourth/step');
             } else {
 
                 /* if third step session is empty then this condision work */
@@ -185,7 +185,7 @@ class PropertyController extends Controller
                         ]);
                     }
                     session()->put('property_third_step_value', $items);
-                    return redirect('property/third/step')->with('message', 'Property unit saved.');
+                    return redirect('property/fourth/step')->with('message', 'Property unit saved.');
                 } else {
 
                     $properties = session()->get('property_first_step_value');
@@ -211,13 +211,25 @@ class PropertyController extends Controller
                         ]);
                     }
                     session()->put('property_third_step_value', $items);
-                    return redirect('property/third/step')->with('message', 'Property unit saved.');
+                    return redirect('property/fourth/step')->with('message', 'Property unit saved.');
                 }
             }
         } catch (\Throwable $th) {
             throw $th;
         }
     }
+
+
+
+    public function fourth_step()
+    {
+        try {
+            return view('modules.property.fourth_step_createUpdate');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.

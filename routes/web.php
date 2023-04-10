@@ -42,6 +42,10 @@ Route::prefix('property')->group(function () {
     /*property third step*/ 
     Route::get('/third/step', [PropertyController::class, 'third_step']);
     Route::post('/third/step/store', [PropertyController::class, 'third_step_store']);
+
+    /*property fourth step*/ 
+    Route::get('/fourth/step', [PropertyController::class, 'fourth_step']);
+    Route::post('/fourth/step/store', [PropertyController::class, 'fourth_step_store']);
 });
 
 
