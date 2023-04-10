@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
@@ -23,11 +24,11 @@ class PropertyController extends Controller
     public function first_step()
     {
         try {
-            session()->forget('property_first_step_value'); 
-            session()->forget('property_second_step_value'); 
-            session()->forget('property_third_step_value'); 
-            session()->forget('property_fourth_step_value');            
-
+            session()->forget('property_id');
+            session()->forget('property_first_step_value');
+            session()->forget('property_second_step_value');
+            session()->forget('property_third_step_value');
+            session()->forget('property_fourth_step_value');
             return view('modules.property.first_step_createUpdate');
         } catch (\Throwable $th) {
             throw $th;
@@ -78,8 +79,8 @@ class PropertyController extends Controller
     public function second_step()
     {
         try {
-            $properties = session()->get('properties');
-            return view('modules.property.second_step_createUpdate', compact('properties'));
+            $edit = session()->get('property_second_step_value');
+            return view('modules.property.second_step_createUpdate', compact('edit'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -89,7 +90,7 @@ class PropertyController extends Controller
     public function second_step_store(Request $request)
     {
         try {
-            if (empty(session()->get('property_second_step_value'))) {
+            if (empty(session()->get('property_first_step_value'))) {
                 $properties = new Property();
                 $properties->country = $request->country;
                 $properties->state = $request->state;
@@ -100,7 +101,7 @@ class PropertyController extends Controller
                 $properties->save();
                 session()->put('property_second_step_value', $properties);
             } else {
-                $property_id = session()->get('property_first_step_id');
+                $property_id = session()->get('property_id');
                 $properties = Property::find($property_id);
                 $properties->country = $request->country;
                 $properties->state = $request->state;
@@ -111,7 +112,80 @@ class PropertyController extends Controller
                 $properties->save();
                 session()->put('property_second_step_value', $properties);
             }
-            return redirect('property/second/step')->with('message', 'Property location saved.');
+            return redirect('property/third/step')->with('message', 'Property location saved.');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function third_step()
+    {
+        try {
+
+            $edit = session()->get('property_third_step_value');
+            //dd($edit);
+            $property_id = session()->get('property_id');
+            $properties = Property::find($property_id);
+
+            return view('modules.property.third_step_createUpdate', compact('edit', 'properties'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function third_step_store(Request $request)
+    {
+
+        try {
+            if (empty(session()->get('property_second_step_value'))) {
+                $properties = session()->get('property_first_step_value');
+                $items = [];
+                for ($i = 0; $i < $properties->total_unit; $i++) {
+                    $unit = new Unit();
+                    $unit->property_id = session()->get('property_id');
+                    $unit->unit_name = $request->unit_name[$i];
+                    $unit->bedroom = $request->bedroom[$i];
+                    $unit->baths = $request->baths[$i];
+                    $unit->kitchen = $request->kitchen[$i];
+                    $unit->save();
+
+                    $items[$i] = ([
+                        'property_id' => session()->get('property_id'),
+                        'unit_name' => $request->unit_name[$i],
+                        'bedroom' => $request->bedroom[$i],
+                        'baths' => $request->baths[$i],
+                        'kitchen' => $request->kitchen[$i],
+                    ]);
+                }
+                session()->put('property_third_step_value', $items);
+                return redirect('/property/third/step');
+            } else {
+                $properties = session()->get('property_first_step_value');
+                $items = [];
+                for ($i = 0; $i < $properties->total_unit; $i++) {
+                    $unit = new Unit();
+                    $unit->property_id = session()->get('property_id');
+                    $unit->unit_name = $request->unit_name[$i];
+                    $unit->bedroom = $request->bedroom[$i];
+                    $unit->baths = $request->baths[$i];
+                    $unit->kitchen = $request->kitchen[$i];
+                    $unit->save();
+
+                    $items[$i] = ([
+                        'property_id' => session()->get('property_id'),
+                        'unit_name' => $request->unit_name[$i],
+                        'bedroom' => $request->bedroom[$i],
+                        'baths' => $request->baths[$i],
+                        'kitchen' => $request->kitchen[$i],
+                    ]);
+                }
+
+                session()->put('property_third_step_value', $items);
+                return redirect('property/third/step')->with('message', 'Property unit saved.');
+            }
+            
         } catch (\Throwable $th) {
             throw $th;
         }
