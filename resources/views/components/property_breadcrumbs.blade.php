@@ -12,7 +12,7 @@
         <div class="col-12 col-sm-12 col-md-3 col-lg-3 text-center">
             <div class="{{ @$location == true ? 'text-primary' : 'text-gray-400' }}">
                 <i class="h2 border rounded-full p-1 ri-home-3-line"></i>
-                <p class="my-2">Location</p>
+                <p class="my-2">Property Location</p>
             </div>
         </div>
 
@@ -20,7 +20,7 @@
         <div class="col-12 col-sm-12 col-md-3 col-lg-3 text-center">
             <div class="{{ @$unit == true ? 'text-primary' : 'text-gray-400' }}">
                 <i class="h2 border rounded-full p-1 ri-home-3-line"></i>
-                <p class="my-2">Unit</p>
+                <p class="my-2">Property Unit</p>
             </div>
         </div>
 
