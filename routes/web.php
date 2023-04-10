@@ -33,6 +33,7 @@ Route::resource('property', PropertyController::class);
 Route::prefix('property')->group(function () {
     /*property first step*/ 
     Route::get('/first/step', [PropertyController::class, 'first_step']);
+    Route::get('/first/step/prev', [PropertyController::class, 'first_step_prev']);
     Route::post('/first/step/store', [PropertyController::class, 'first_step_store']);
     /*property second step*/ 
     Route::get('/second/step', [PropertyController::class, 'second_step']);

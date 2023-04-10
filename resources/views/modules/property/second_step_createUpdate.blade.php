@@ -112,6 +112,8 @@
                     'name' => 'Location save && go to next',
                 ])
                 @endcomponent
+                <a href="{{url('property/first/step/prev')}}">Pre</a>
+                
             </div>
 
         </form>

@@ -48,7 +48,7 @@
                     'name' => 'total_unit',
                     'placeholder' => 'property number of unit',
                     'required' => true,
-                    'value' => @$edit->unit,
+                    'value' => @$edit->total_unit,
                 ])
                 @endcomponent
             </div>
@@ -56,7 +56,7 @@
             {{-- description --}}
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <label for="">Property description</label>
-                <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
+                <textarea class="form-control" name="description" id="" cols="30" rows="10">{{@$edit->description}}</textarea>
             </div>
 
             {{-- button --}}
@@ -65,6 +65,7 @@
                     'name' => 'Property information save',
                 ])
                 @endcomponent
+      
             </div>
 
         </form>

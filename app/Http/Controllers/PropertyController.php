@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Route;
 
 class PropertyController extends Controller
 {
@@ -21,7 +23,21 @@ class PropertyController extends Controller
     public function first_step()
     {
         try {
-            $edit = session()->get('property_first_step');
+            session()->forget('property_first_step_value'); 
+            session()->forget('property_second_step_value'); 
+            session()->forget('property_third_step_value'); 
+            session()->forget('property_fourth_step_value');            
+
+            return view('modules.property.first_step_createUpdate');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function first_step_prev()
+    {
+        try {
+            $edit = session()->get('property_first_step_value');
             return view('modules.property.first_step_createUpdate', compact('edit'));
         } catch (\Throwable $th) {
             throw $th;
@@ -32,17 +48,25 @@ class PropertyController extends Controller
     public function first_step_store(Request $request)
     {
         try {
-            if (empty(session()->get('property_first_step'))) {
+            if (empty(session()->get('property_first_step_value'))) {
                 $properties = new Property();
                 $properties->name = $request->name;
                 $properties->total_unit = $request->total_unit;
                 $properties->description = $request->description;
                 $properties->image = $request->image;
                 $properties->save();
-                session()->put('property_first_step', $properties);
+                $property_id = $properties->property_id;
+                session()->put('property_first_step_value', $properties);
+                session()->put('property_id', $property_id);
             } else {
-
-                session()->put('property_first_step', $properties);
+                $property_id = session()->get('property_id');
+                $properties = Property::find($property_id);
+                $properties->name = $request->name;
+                $properties->total_unit = $request->total_unit;
+                $properties->description = $request->description;
+                $properties->image = $request->image;
+                $properties->save();
+                session()->put('property_first_step_value', $properties);
             }
             return redirect('property/second/step')->with('message', 'Property information saved.');
         } catch (\Throwable $th) {
@@ -65,7 +89,7 @@ class PropertyController extends Controller
     public function second_step_store(Request $request)
     {
         try {
-            if (empty(session()->get('property_second_step'))) {
+            if (empty(session()->get('property_second_step_value'))) {
                 $properties = new Property();
                 $properties->country = $request->country;
                 $properties->state = $request->state;
@@ -74,10 +98,18 @@ class PropertyController extends Controller
                 $properties->address = $request->address;
                 $properties->map_link = $request->map_link;
                 $properties->save();
-                session()->put('properties', $properties);
+                session()->put('property_second_step_value', $properties);
             } else {
-                $properties = session()->get('properties');
-                session()->put('properties', $properties);
+                $property_id = session()->get('property_first_step_id');
+                $properties = Property::find($property_id);
+                $properties->country = $request->country;
+                $properties->state = $request->state;
+                $properties->city = $request->city;
+                $properties->zip_code = $request->zip_code;
+                $properties->address = $request->address;
+                $properties->map_link = $request->map_link;
+                $properties->save();
+                session()->put('property_second_step_value', $properties);
             }
             return redirect('property/second/step')->with('message', 'Property location saved.');
         } catch (\Throwable $th) {
