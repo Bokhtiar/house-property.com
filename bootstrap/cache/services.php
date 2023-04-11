@@ -42,6 +42,7 @@
     38 => 'App\\Providers\\RouteServiceProvider',
     39 => 'App\\Providers\\FortifyServiceProvider',
     40 => 'App\\Providers\\JetstreamServiceProvider',
+    41 => 'Intervention\\Image\\ImageServiceProvider',
   ),
   'eager' => 
   array (
@@ -72,6 +73,7 @@
     24 => 'App\\Providers\\RouteServiceProvider',
     25 => 'App\\Providers\\FortifyServiceProvider',
     26 => 'App\\Providers\\JetstreamServiceProvider',
+    27 => 'Intervention\\Image\\ImageServiceProvider',
   ),
   'deferred' => 
   array (

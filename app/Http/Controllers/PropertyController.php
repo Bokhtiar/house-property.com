@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use Image;
 use App\Models\Unit;
+use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Services\PropertyServices;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 
 class PropertyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /* Display a listing of the resource. */
     public function index()
     {
         try {
-            $properties = Property::all();
+            $properties = PropertyServices::propertyList();
             return view('modules.property.index', compact('properties'));
         } catch (\Throwable $th) {
             throw $th;
@@ -53,24 +51,50 @@ class PropertyController extends Controller
     /* Store a newly created resource in storage first_step_one_store. */
     public function first_step_store(Request $request)
     {
+
         try {
             if (empty(session()->get('property_first_step_value'))) {
+
                 $properties = new Property();
                 $properties->name = $request->name;
                 $properties->total_unit = $request->total_unit;
                 $properties->description = $request->description;
-                $properties->image = $request->image;
+
+
+
+                /* image */
+                $image = Image::make($request->file('image'));
+                $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                $destinationPath = public_path('images/');
+                $image->save($destinationPath . $imageName);
+                $properties->image = $imageName;
+
                 $properties->save();
                 $property_id = $properties->property_id;
                 session()->put('property_first_step_value', $properties);
                 session()->put('property_id', $property_id);
             } else {
+
                 $property_id = session()->get('property_id');
                 $properties = Property::find($property_id);
                 $properties->name = $request->name;
                 $properties->total_unit = $request->total_unit;
                 $properties->description = $request->description;
-                $properties->image = $request->image;
+
+
+                if ($request->hasFile('image')) {
+                    /* image */
+                    $image = Image::make($request->file('image'));
+                    $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                    $destinationPath = public_path('images/');
+                    $image->save($destinationPath . $imageName);
+                    $properties->image = $imageName;
+                }else{
+                    $properties->image = $properties->image;
+                }
+
+
+
                 $properties->save();
                 session()->put('property_first_step_value', $properties);
             }
