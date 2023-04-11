@@ -57,6 +57,7 @@
                             </div>
                         </div> --}}
                         @foreach ($units as $item)
+                        
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -77,7 +78,7 @@
                                                 'name' => 'general_rent[]',
                                                 'placeholder' => '0.0',
                                                 'required' => true,
-                                                'value' => @$edit->general_rent,
+                                                'value' => @$edit[$loop->index]['general_rent'],
                                             ])
                                             @endcomponent
                                         </div>
@@ -90,7 +91,7 @@
                                                 'name' => 'security_deposit[]',
                                                 'placeholder' => '0.0',
                                                 'required' => true,
-                                                'value' => @$edit->security_deposit,
+                                                'value' => @$edit[$loop->index]['security_deposit'],
                                             ])
                                             @endcomponent
                                         </div>
@@ -103,7 +104,7 @@
                                                 'name' => 'late_fee[]',
                                                 'placeholder' => '0.0',
                                                 'required' => true,
-                                                'value' => @$edit->late_fee,
+                                                'value' => @$edit[$loop->index]['late_fee'],
                                             ])
                                             @endcomponent
                                         </div>
@@ -116,15 +117,15 @@
                                                 'name' => 'incident_receipt[]',
                                                 'placeholder' => '0.0',
                                                 'required' => true,
-                                                'value' => @$edit->incident_receipt,
+                                                'value' => @$edit[$loop->index]['incident_receipt'],
                                             ])
                                             @endcomponent
                                         </div>
                                     </div>
                                     {{-- rent type --}}
                                     <div class="accordion-body">
-                                        <input type="checkbox" name="rent_type[]" value="monthly"> Monthly
-                                        <input type="checkbox" name="rent_type[]" value="yearly"> yearly
+                                        <input type="checkbox" name="rent_type[]" value="monthly" {{@$edit[$loop->index]['rent_type'] == "monthly" ? 'checked' : ""}} > Monthly
+                                        <input type="checkbox" name="rent_type[]" value="yearly" {{@$edit[$loop->index]['rent_type'] == "yearly" ? 'checked' : ""}}> yearly
                                     </div>
                                    
                                 </div>

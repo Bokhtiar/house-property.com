@@ -224,8 +224,10 @@ class PropertyController extends Controller
     public function fourth_step()
     {
         try {
+            
             $units = session()->get('property_third_step_value');
-            return view('modules.property.fourth_step_createUpdate', compact('units'));
+            $edit = session()->get('property_fourth_step_value');
+            return view('modules.property.fourth_step_createUpdate', compact('units', 'edit'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -237,17 +239,14 @@ class PropertyController extends Controller
     {
         //dd($request->all());
         try {
-             /* if third step session is empty then this condision work */
-             if (empty(session()->get('property_fourth_step_value'))) {
-
-                $units = session()->get('property_third_step_value');
+            /* if third step session is empty then this condision work */
+            if (empty(session()->get('property_fourth_step_value'))) {
                 $properties = session()->get('property_first_step_value');
                 $unit_id = $request->unit_id;
-        
                 $items = [];
                 for ($i = 0; $i < $properties->total_unit; $i++) {
-                    $unit = Unit::find($unit_id);
-                    $unit->general_rent = $request->general_rent;
+                    $unit = Unit::find($unit_id[$i]);
+                    $unit->general_rent = $request->general_rent[$i];
                     $unit->security_deposit = $request->security_deposit[$i];
                     $unit->late_fee = $request->late_fee[$i];
                     $unit->incident_receipt = $request->incident_receipt[$i];
@@ -272,8 +271,8 @@ class PropertyController extends Controller
 
                 $items = [];
                 for ($i = 0; $i < $properties->total_unit; $i++) {
-                    $unit = Unit::find($unit_id);
-                    $unit->general_rent = $request->general_rent;
+                    $unit = Unit::find($unit_id[$i]);
+                    $unit->general_rent = $request->general_rent[$i];
                     $unit->security_deposit = $request->security_deposit[$i];
                     $unit->late_fee = $request->late_fee[$i];
                     $unit->incident_receipt = $request->incident_receipt[$i];
