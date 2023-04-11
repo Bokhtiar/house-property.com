@@ -37,9 +37,9 @@
                 </div>
             </div>
 
+        </div>
 
-
-
+    </div>
             @section('js')
             @endsection
         @endsection

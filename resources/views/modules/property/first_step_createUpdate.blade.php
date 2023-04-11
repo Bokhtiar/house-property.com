@@ -23,10 +23,11 @@
 
     {{-- property first step --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
-        <form action="{{url('property/first/step/store')}}" method="POST" enctype="multipart/form-data" class="form-group row">
+        <form action="{{ url('property/first/step/store') }}" method="POST" enctype="multipart/form-data"
+            class="form-group row">
             @csrf
             @method('POST')
-            
+
             {{-- name --}}
             <div class="col-sm-12 col-md-6 col-lg-6">
                 @component('components.input', [
@@ -53,10 +54,20 @@
                 @endcomponent
             </div>
 
+            {{-- image --}}
+            {{-- <div class="col-sm-12 col-md-2 col-lg-2">
+                <div class=" bg-secondary text-white text-sm  border border-3 rounded">
+                    <input class="py-5 px-1" type="file" name="image" onchange="loadFile(event)" id="">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-10 col-lg-10">
+                <img id="output" style=" height:130px; width:230px;">
+            </div> --}}
+
             {{-- description --}}
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <label for="">Property description</label>
-                <textarea class="form-control" name="description" id="" cols="30" rows="10">{{@$edit->description}}</textarea>
+                <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ @$edit->description }}</textarea>
             </div>
 
             {{-- button --}}
@@ -65,9 +76,19 @@
                     'name' => 'Property information save',
                 ])
                 @endcomponent
-      
+
             </div>
 
         </form>
     </section>
+
+
+@section('js')
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output')
+            output.src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+@endsection
 @endsection

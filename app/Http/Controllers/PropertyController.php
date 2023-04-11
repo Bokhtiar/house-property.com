@@ -17,7 +17,12 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $properties = Property::all();
+            return view('modules.property.index', compact('properties'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /* Show the form for creating a new resource.*/
@@ -224,7 +229,6 @@ class PropertyController extends Controller
     public function fourth_step()
     {
         try {
-            
             $units = session()->get('property_third_step_value');
             $edit = session()->get('property_fourth_step_value');
             return view('modules.property.fourth_step_createUpdate', compact('units', 'edit'));
@@ -241,17 +245,23 @@ class PropertyController extends Controller
         try {
             /* if third step session is empty then this condision work */
             if (empty(session()->get('property_fourth_step_value'))) {
+
                 $properties = session()->get('property_first_step_value');
+
                 $unit_id = $request->unit_id;
+
                 $items = [];
                 for ($i = 0; $i < $properties->total_unit; $i++) {
                     $unit = Unit::find($unit_id[$i]);
+
                     $unit->general_rent = $request->general_rent[$i];
                     $unit->security_deposit = $request->security_deposit[$i];
                     $unit->late_fee = $request->late_fee[$i];
                     $unit->incident_receipt = $request->incident_receipt[$i];
                     $unit->rent_type = $request->rent_type[$i];
                     $unit->save();
+
+
 
                     $items[$i] = ([
                         'unit_id' => $unit->unit_id,
@@ -262,8 +272,9 @@ class PropertyController extends Controller
                         'rent_type' => $request->rent_type[$i],
                     ]);
                 }
+
                 session()->put('property_fourth_step_value', $items);
-                return redirect('property/fourth/step')->with('message', 'Property rent && charge saved.');
+                return redirect()->route('property.index')->with('message', 'Property rent && charge saved.');
             } else {
 
                 $properties = session()->get('property_first_step_value');
@@ -289,7 +300,7 @@ class PropertyController extends Controller
                     ]);
                 }
                 session()->put('property_fourth_step_value', $items);
-                return redirect('property/fourth/step')->with('message', 'Property rent && charge saved.');
+                return redirect()->route('property.index')->with('message', 'Property rent && charge saved.');
             }
         } catch (\Throwable $th) {
             //throw $th;

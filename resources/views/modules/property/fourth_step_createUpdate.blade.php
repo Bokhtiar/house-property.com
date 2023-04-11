@@ -27,10 +27,7 @@
             class="form-group row">
             @csrf
             @method('POST')
-
-
-
-
+            
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Default Accordion</h5>
@@ -57,7 +54,6 @@
                             </div>
                         </div> --}}
                         @foreach ($units as $item)
-                        
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -65,11 +61,12 @@
                                         {{ $item['unit_name'] }}
                                     </button>
                                 </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                <div id="collapseTwo" class="accordion-collapse collapse {{$loop->index == 0 ?'show' : ''}}" aria-labelledby="headingTwo"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body row">
 
-                                        <input type="hidden" name="unit_id[]" value="{{$item['unit_id']}}" id="">
+                                        <input type="hidden" name="unit_id[]" value="{{ $item['unit_id'] }}"
+                                            id="">
                                         {{-- general rent --}}
                                         <div class="col-sm-12 col-md-3 col-lg-3">
                                             @component('components.input', [
@@ -77,8 +74,8 @@
                                                 'type' => 'number',
                                                 'name' => 'general_rent[]',
                                                 'placeholder' => '0.0',
-                                                'required' => true,
-                                                'value' => @$edit[$loop->index]['general_rent'],
+                                                'required' => false,
+                                                'value' => @$edit[$loop->index]['general_rent'] ?? 0,
                                             ])
                                             @endcomponent
                                         </div>
@@ -90,8 +87,8 @@
                                                 'type' => 'number',
                                                 'name' => 'security_deposit[]',
                                                 'placeholder' => '0.0',
-                                                'required' => true,
-                                                'value' => @$edit[$loop->index]['security_deposit'],
+                                                'required' => false,
+                                                'value' => @$edit[$loop->index]['security_deposit'] ?? 0,
                                             ])
                                             @endcomponent
                                         </div>
@@ -103,8 +100,8 @@
                                                 'type' => 'number',
                                                 'name' => 'late_fee[]',
                                                 'placeholder' => '0.0',
-                                                'required' => true,
-                                                'value' => @$edit[$loop->index]['late_fee'],
+                                                'required' => false,
+                                                'value' => @$edit[$loop->index]['late_fee'] ?? 0,
                                             ])
                                             @endcomponent
                                         </div>
@@ -116,21 +113,25 @@
                                                 'type' => 'number',
                                                 'name' => 'incident_receipt[]',
                                                 'placeholder' => '0.0',
-                                                'required' => true,
-                                                'value' => @$edit[$loop->index]['incident_receipt'],
+                                                'required' => false,
+                                                'value' => @$edit[$loop->index]['incident_receipt'] ?? 0,
                                             ])
                                             @endcomponent
                                         </div>
                                     </div>
                                     {{-- rent type --}}
                                     <div class="accordion-body">
-                                        <input type="checkbox" name="rent_type[]" value="monthly" {{@$edit[$loop->index]['rent_type'] == "monthly" ? 'checked' : ""}} > Monthly
-                                        <input type="checkbox" name="rent_type[]" value="yearly" {{@$edit[$loop->index]['rent_type'] == "yearly" ? 'checked' : ""}}> yearly
+                                        
+                                        <input type="checkbox" name="rent_type[]" value="monthly"
+                                        checked  {{ @$edit[$loop->index]['rent_type'] == 'monthly' ? 'checked' : '' }}> Monthly
+
+
+                                        <input type="checkbox" name="rent_type[]" value="yearly"
+                                            {{ @$edit[$loop->index]['rent_type'] == 'yearly' ? 'checked' : '' }}> yearly
                                     </div>
-                                   
+
                                 </div>
                             </div>
-                            
                         @endforeach
 
 
