@@ -15,6 +15,13 @@ class CreateUnitsTable extends Migration
             $table->string('bedroom')->default(0);
             $table->string('baths')->default(0);
             $table->string('kitchen')->default(0);
+
+            $table->string('general_rent')->default(0);
+            $table->string('security_deposit')->default(0);
+            $table->string('late_fee')->default(0);
+            $table->string('incident_receipt')->default(0);
+            $table->string('rent_type')->default('monthly');
+
             $table->string('property_id')->required();
             $table->timestamps();
         });

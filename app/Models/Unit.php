@@ -17,5 +17,11 @@ class Unit extends Model
         'baths',
         'kitchen',
         'property_id',
+
+        'general_rent',
+        'security_deposit',
+        'late_fee',
+        'incident_receipt',
+        'rent_type',
     ];
 }
