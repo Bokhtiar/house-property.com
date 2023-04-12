@@ -603,9 +603,14 @@ class PropertyController extends Controller
      * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        //
+        try {
+            $show  = PropertyServices::propertyFindById($id);
+            return view('modules.property.show', compact('show'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

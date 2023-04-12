@@ -71,7 +71,7 @@
                                 </p>
                             </div>
 
-                            <a href="#" class="mt-4 btn btn-primary w-full">View Details</a>
+                            <a href="@route('property.show', $item->property_id)" class="mt-4 btn btn-primary w-full">View Details</a>
                         </div>
                     </div>
                 </div>
