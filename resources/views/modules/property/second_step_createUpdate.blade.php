@@ -119,7 +119,12 @@
                 'name' => 'Location save && go to next',
             ])
             @endcomponent
-            <a href="{{ url('property/first/step/prev') }}">Pre</a>
+             @if (@$update)
+                <a href="@route('property.edit', @$update->property_id)">Pres</a>    
+                @else
+                <a href="{{ url('property/first/step/prev') }}">Prse</a>
+                @endif
+            
 
         </div>
 

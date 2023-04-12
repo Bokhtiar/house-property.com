@@ -24,15 +24,24 @@
     {{-- property first step --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
         <h2 class="card-title">Add units</h2>
-        <form action="{{ url('property/third/step/store') }}" method="POST" enctype="multipart/form-data"
-            class="form-group row">
-            @csrf
-            @method('POST')
+  
 
-           
+        @if (@$update)
+            <form action="{{ url('property/third/step/update', @$properties->property_id) }}" method="POST" enctype="multipart/form-data"
+                class="form-group row">
+                @csrf
+                @method('PUT')
+            @else
+                <form action="{{ url('property/third/step/store') }}" method="POST" enctype="multipart/form-data"
+                    class="form-group row">
+                    @csrf
+                    @method('POST')
+        @endif
+
+
             @for ($i = 0; $i < $properties->total_unit; $i++)
-          
-            {{-- {{dd($edit[$i]['unit_name'])}} --}}
+
+
                 {{-- unit --}}
                 <div class="col-sm-12 col-md-3 col-lg-3">
                     @component('components.input', [
@@ -41,7 +50,7 @@
                         'name' => 'unit_name[]',
                         'placeholder' => 'Unit A',
                         'required' => false,
-                        'value' => @$edit[$i]['unit_name'],
+                        'value' => @$edit ? @$edit[$i]['unit_name'] : @$update[$i]['unit_name'],
                     ])
                     @endcomponent
                 </div>
@@ -54,7 +63,7 @@
                         'name' => 'bedroom[]',
                         'placeholder' => '0',
                         'required' => false,
-                        'value' => @$edit[$i]['bedroom'] ?? 0,
+                        'value' => @$edit ? @$edit[$i]['bedroom'] : @$update[$i]['bedroom'],
                     ])
                     @endcomponent
                 </div>
@@ -67,7 +76,7 @@
                         'name' => 'baths[]',
                         'placeholder' => '0',
                         'required' => false,
-                        'value' => @$edit[$i]['baths'] ?? 0,
+                        'value' => @$edit ? @$edit[$i]['baths'] : @$update[$i]['baths'],
                     ])
                     @endcomponent
                 </div>
@@ -80,7 +89,7 @@
                         'name' => 'kitchen[]',
                         'placeholder' => '0',
                         'required' => false,
-                        'value' => @$edit[$i]['kitchen'] ?? 0,
+                        'value' => @$edit ? @$edit[$i]['kitchen'] : @$update[$i]['kitchen'],
                     ])
                     @endcomponent
                 </div>
@@ -94,7 +103,12 @@
                     'name' => 'Location save && go to next',
                 ])
                 @endcomponent
-                <a href="{{ url('property/second/step') }}">Pre</a>
+
+                @if (@$update)
+                    <a href="{{ url('property/second/step/edit',@$properties->property_id) }}">Pre</a>
+                @else
+                    <a href="{{ url('property/second/step') }}">Pre</a>
+                @endif
 
             </div>
 

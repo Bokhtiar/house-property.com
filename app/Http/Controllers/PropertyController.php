@@ -351,24 +351,31 @@ class PropertyController extends Controller
     public function third_step_edit($id)
     {
         try {
-            $update = Property::find($id);
+            $update = Unit::where('property_id', $id)->get();
+            
             $edit = session()->get('property_third_step_value');
+            
+            
             $property_id = session()->get('property_id');
+            
             $properties = Property::find($property_id);
+            
+    
             return view('modules.property.third_step_createUpdate', compact('edit', 'properties', 'update'));
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function third_step_store_edit(Request $request, $id)
+    public function third_step_update(Request $request, $id)
     {
         try {
 
             /* if third step session is empty then this condision work */
             if (empty(session()->get('property_third_step_value'))) {
                 $properties = session()->get('property_first_step_value');
-                $units = session()->get('property_third_step_value');
+                $units = Unit::where('property_id', $id)->get();
+                
                 $items = [];
                 for ($i = 0; $i < $properties->total_unit; $i++) {
                     $unit = Unit::find($units[$i]['unit_id']);;
@@ -415,14 +422,14 @@ class PropertyController extends Controller
                     ]);
                 }
                 session()->put('property_third_step_value', $items);
-                return redirect('property/fourth/step')->with('message', 'Property unit saved.');
+                return redirect('property/fourth/step/edit/'.$id)->with('message', 'Property unit saved.');
             }
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-
+    /* step 4 creat  */
     public function fourth_step()
     {
         try {
@@ -504,6 +511,91 @@ class PropertyController extends Controller
         }
     }
 
+
+    /* step 4 update */
+    public function fourth_step_edit($id)
+        
+    {
+        try {
+            $property_id = $id;
+            $update = Unit::where('property_id',$id)->get();
+            $units = session()->get('property_third_step_value');
+            $edit = session()->get('property_fourth_step_value');
+            return view('modules.property.fourth_step_createUpdate', compact('units', 'edit', 'update', 'property_id'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+    public function fourth_step_update(Request $request)
+    {
+        //dd($request->all());
+        try {
+            /* if third step session is empty then this condision work */
+            if (empty(session()->get('property_fourth_step_value'))) {
+
+                $properties = session()->get('property_first_step_value');
+
+                $unit_id = $request->unit_id;
+
+                $items = [];
+                for ($i = 0; $i < $properties->total_unit; $i++) {
+                    $unit = Unit::find($unit_id[$i]);
+
+                    $unit->general_rent = $request->general_rent[$i];
+                    $unit->security_deposit = $request->security_deposit[$i];
+                    $unit->late_fee = $request->late_fee[$i];
+                    $unit->incident_receipt = $request->incident_receipt[$i];
+                    $unit->rent_type = $request->rent_type[$i];
+                    $unit->save();
+
+
+
+                    $items[$i] = ([
+                        'unit_id' => $unit->unit_id,
+                        'general_rent' => $request->general_rent[$i],
+                        'security_deposit' => $request->security_deposit[$i],
+                        'late_fee' => $request->late_fee[$i],
+                        'incident_receipt' => $request->incident_receipt[$i],
+                        'rent_type' => $request->rent_type[$i],
+                    ]);
+                }
+
+                session()->put('property_fourth_step_value', $items);
+                return redirect()->route('property.index')->with('message', 'Property rent && charge saved.');
+            } else {
+
+                $properties = session()->get('property_first_step_value');
+                $unit_id = $request->unit_id;
+
+                $items = [];
+                for ($i = 0; $i < $properties->total_unit; $i++) {
+                    $unit = Unit::find($unit_id[$i]);
+                    $unit->general_rent = $request->general_rent[$i];
+                    $unit->security_deposit = $request->security_deposit[$i];
+                    $unit->late_fee = $request->late_fee[$i];
+                    $unit->incident_receipt = $request->incident_receipt[$i];
+                    $unit->rent_type = $request->rent_type[$i];
+                    $unit->save();
+
+                    $items[$i] = ([
+                        'unit_id' => $unit->unit_id,
+                        'general_rent' => $request->general_rent[$i],
+                        'security_deposit' => $request->security_deposit[$i],
+                        'late_fee' => $request->late_fee[$i],
+                        'incident_receipt' => $request->incident_receipt[$i],
+                        'rent_type' => $request->rent_type[$i],
+                    ]);
+                }
+                session()->put('property_fourth_step_value', $items);
+                return redirect()->route('property.index')->with('message', 'Property rent && charge saved.');
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 
     /**
      * Show the form for editing the specified resource.

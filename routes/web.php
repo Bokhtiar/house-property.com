@@ -52,6 +52,8 @@ Route::prefix('property')->group(function () {
     /*property fourth step*/ 
     Route::get('/fourth/step', [PropertyController::class, 'fourth_step']);
     Route::post('/fourth/step/store', [PropertyController::class, 'fourth_step_store']);
+    Route::get('/fourth/step/edit/{id}', [PropertyController::class, 'fourth_step_edit']);
+    Route::put('/fourth/step/update/{id}', [PropertyController::class, 'fourth_step_update']);
 
 
     /* destroy */
