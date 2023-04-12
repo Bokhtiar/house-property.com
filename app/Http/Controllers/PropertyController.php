@@ -14,10 +14,29 @@ class PropertyController extends Controller
 {
     /* Display a listing of the resource. */
     public function index()
-    {
+    { 
         try {
             $properties = PropertyServices::propertyList();
             return view('modules.property.index', compact('properties'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function sessionClear(){
+        session()->forget('property_id');
+        session()->forget('property_first_step_value');
+        session()->forget('property_second_step_value');
+        session()->forget('property_third_step_value');
+        session()->forget('property_fourth_step_value');
+    }
+
+    public function create()
+    { 
+        try {
+            $this->sessionClear();
+            return view('modules.property.first_step_createUpdate');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -27,11 +46,7 @@ class PropertyController extends Controller
     public function first_step()
     {
         try {
-            session()->forget('property_id');
-            session()->forget('property_first_step_value');
-            session()->forget('property_second_step_value');
-            session()->forget('property_third_step_value');
-            session()->forget('property_fourth_step_value');
+            $this->sessionClear();
             return view('modules.property.first_step_createUpdate');
         } catch (\Throwable $th) {
             throw $th;
@@ -59,8 +74,6 @@ class PropertyController extends Controller
                 $properties->name = $request->name;
                 $properties->total_unit = $request->total_unit;
                 $properties->description = $request->description;
-
-
 
                 /* image */
                 $image = Image::make($request->file('image'));

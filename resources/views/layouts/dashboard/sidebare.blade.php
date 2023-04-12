@@ -54,7 +54,7 @@
                     </li>
                     <li>
                         <a href="{{url('property/first/step')}}">
-                            <i class="bi bi-circle"></i><span>Property</span>
+                            <i class="bi bi-circle"></i><span>Create Property</span>
                         </a>
                     </li>
                 </ul> 

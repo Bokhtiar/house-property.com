@@ -19,7 +19,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
+}); 
 
 /* roles */
 Route::resource('role', RoleController::class);
