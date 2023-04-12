@@ -14,7 +14,7 @@ class PropertyController extends Controller
 {
     /* Display a listing of the resource. */
     public function index()
-    { 
+    {
         try {
             $properties = PropertyServices::propertyList();
             return view('modules.property.index', compact('properties'));
@@ -24,7 +24,8 @@ class PropertyController extends Controller
     }
 
 
-    public function sessionClear(){
+    public function sessionClear()
+    {
         session()->forget('property_id');
         session()->forget('property_first_step_value');
         session()->forget('property_second_step_value');
@@ -33,7 +34,7 @@ class PropertyController extends Controller
     }
 
     public function create()
-    { 
+    {
         try {
             $this->sessionClear();
             return view('modules.property.first_step_createUpdate');
@@ -102,11 +103,69 @@ class PropertyController extends Controller
                     $destinationPath = public_path('images/');
                     $image->save($destinationPath . $imageName);
                     $properties->image = $imageName;
-                }else{
+                } else {
                     $properties->image = $properties->image;
                 }
 
 
+
+                $properties->save();
+                session()->put('property_first_step_value', $properties);
+            }
+            return redirect('property/second/step')->with('message', 'Property information saved.');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+    /* update a resource in storage first_step_one_update. */
+    public function first_step_update(Request $request, $id)
+    {
+        try {
+            if (empty(session()->get('property_first_step_value'))) {
+
+                $properties = Property::find($id);
+                $properties->name = $request->name;
+                $properties->total_unit = $request->total_unit;
+                $properties->description = $request->description;
+
+                if ($request->hasFile('image')) {
+                    /* image */
+                    $image = Image::make($request->file('image'));
+                    $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                    $destinationPath = public_path('images/');
+                    $image->save($destinationPath . $imageName);
+                    $properties->image = $imageName;
+                } else {
+                    $properties->image = $properties->image;
+                }
+
+
+                $properties->save();
+                $property_id = $properties->property_id;
+                session()->put('property_first_step_value', $properties);
+                session()->put('property_id', $property_id);
+            } else {
+
+                $property_id = session()->get('property_id');
+                $properties = Property::find($property_id);
+                $properties->name = $request->name;
+                $properties->total_unit = $request->total_unit;
+                $properties->description = $request->description;
+
+
+                if ($request->hasFile('image')) {
+                    /* image */
+                    $image = Image::make($request->file('image'));
+                    $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                    $destinationPath = public_path('images/');
+                    $image->save($destinationPath . $imageName);
+                    $properties->image = $imageName;
+                } else {
+                    $properties->image = $properties->image;
+                }
 
                 $properties->save();
                 session()->put('property_first_step_value', $properties);
@@ -362,9 +421,15 @@ class PropertyController extends Controller
      * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property $property)
+    public function edit($id)
     {
-        //
+        try {
+            $this->sessionClear();
+            $update = PropertyServices::propertyFindById($id);
+            return view('modules.property.first_step_createUpdate', compact('update'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

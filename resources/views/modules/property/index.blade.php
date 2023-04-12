@@ -43,7 +43,7 @@
                                             class="ri-more-2-line"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <li><a class="dropdown-item" href="@route('property.edit', $item->property_id)">Edit</a></li>
                                         <li><a class="dropdown-item" href="{{url('property/destroy', $item->property_id)}}">Delete</a></li>
                                     </ul>
                                 </div>
