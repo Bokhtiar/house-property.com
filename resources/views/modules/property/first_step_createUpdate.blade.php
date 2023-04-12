@@ -24,7 +24,7 @@
     {{-- property first step --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
         @if (@$update)
-            <form action="{{ url('property/first/step/store') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ url('property/first/step/update', @$update->property_id) }}" method="POST" enctype="multipart/form-data"
                 class="form-group row">
                 @csrf
                 @method('PUT')

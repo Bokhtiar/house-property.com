@@ -40,10 +40,14 @@ Route::prefix('property')->group(function () {
     /*property second step*/ 
     Route::get('/second/step', [PropertyController::class, 'second_step']);
     Route::post('/second/step/store', [PropertyController::class, 'second_step_store']);
+    Route::get('/second/step/edit/{id}', [PropertyController::class, 'second_step_edit']);
+    Route::put('/second/step/update/{id}', [PropertyController::class, 'second_step_update']);
 
     /*property third step*/ 
     Route::get('/third/step', [PropertyController::class, 'third_step']);
     Route::post('/third/step/store', [PropertyController::class, 'third_step_store']);
+    Route::get('/third/step/edit/{id}', [PropertyController::class, 'third_step_edit']);
+    Route::put('/third/step/update/{id}', [PropertyController::class, 'third_step_update']);
 
     /*property fourth step*/ 
     Route::get('/fourth/step', [PropertyController::class, 'fourth_step']);
