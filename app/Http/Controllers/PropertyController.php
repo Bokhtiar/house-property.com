@@ -607,9 +607,10 @@ class PropertyController extends Controller
     {
         try {
             $show  = PropertyServices::propertyFindById($id);
-            return view('modules.property.show', compact('show'));
+            $units = Unit::where('property_id', $id)->get();
+            return view('modules.property.show', compact('show', 'units'));
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
 
