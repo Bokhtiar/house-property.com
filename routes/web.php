@@ -42,7 +42,7 @@ Route::prefix('property')->group(function () {
     Route::post('/second/step/store', [PropertyController::class, 'second_step_store']);
     Route::get('/second/step/edit/{id}', [PropertyController::class, 'second_step_edit']);
     Route::put('/second/step/update/{id}', [PropertyController::class, 'second_step_update']);
-
+ 
     /*property third step*/ 
     Route::get('/third/step', [PropertyController::class, 'third_step']);
     Route::post('/third/step/store', [PropertyController::class, 'third_step_store']);
@@ -55,10 +55,9 @@ Route::prefix('property')->group(function () {
     Route::get('/fourth/step/edit/{id}', [PropertyController::class, 'fourth_step_edit']);
     Route::put('/fourth/step/update/{id}', [PropertyController::class, 'fourth_step_update']);
 
-
     /* destroy */
     Route::get('/destroy/{id}', [PropertyController::class, 'destroy']);
-
+    
 });
 
-
+ 

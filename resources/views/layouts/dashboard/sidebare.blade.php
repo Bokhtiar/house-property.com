@@ -58,6 +58,26 @@
                         </a>
                     </li>
                 </ul> 
+            </li><!-- End Department Nav --> 
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#tenant" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>tenant</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="tenant" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@route('tenant.index')">
+                            <i class="bi bi-circle"></i><span>Tenant</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('tenant/first/step')}}">
+                            <i class="bi bi-circle"></i><span>Create tenant</span>
+                        </a>
+                    </li>
+                </ul> 
             </li><!-- End Department Nav -->
        
 
