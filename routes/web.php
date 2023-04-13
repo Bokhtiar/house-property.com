@@ -68,14 +68,14 @@ Route::prefix('tenant')->group(function () {
     /*tenent first step*/ 
     Route::get('/first/step', [TenantController::class, 'first_step']);
     Route::get('/first/step/prev', [TenantController::class, 'first_step_prev']);
-    Route::post('/first/step/store', [PropertyController::class, 'first_step_store']);
-    Route::put('/first/step/update/{id}', [PropertyController::class, 'first_step_update']);
+    Route::post('/first/step/store', [TenantController::class, 'first_step_store']);
+    // Route::put('/first/step/update/{id}', [PropertyController::class, 'first_step_update']);
 
     /*property second step*/ 
-    Route::get('/second/step', [PropertyController::class, 'second_step']);
+    Route::get('/second/step', [TenantController::class, 'second_step']);
     Route::post('/second/step/store', [PropertyController::class, 'second_step_store']);
-    Route::get('/second/step/edit/{id}', [PropertyController::class, 'second_step_edit']);
-    Route::put('/second/step/update/{id}', [PropertyController::class, 'second_step_update']);
+    // Route::get('/second/step/edit/{id}', [PropertyController::class, 'second_step_edit']);
+    // Route::put('/second/step/update/{id}', [PropertyController::class, 'second_step_update']);
  
     /*property third step*/ 
     Route::get('/third/step', [PropertyController::class, 'third_step']);
