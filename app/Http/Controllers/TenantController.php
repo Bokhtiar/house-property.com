@@ -27,6 +27,16 @@ class TenantController extends Controller
         //
     }
 
+    /* Show the form for creating a new resource. */
+    public function first_step()
+    {
+        try {
+            return view('modules.tenant.first_step_createUpdate');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *

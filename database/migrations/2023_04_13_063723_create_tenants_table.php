@@ -19,7 +19,7 @@ class CreateTenantsTable extends Migration
             $table->string('last_name')->required();
             $table->integer('contact_number')->required();
             $table->string('job')->nullable();
-            $table->integer('age');
+            $table->integer('age')->nullable();
             $table->integer('familly_member')->required();
             $table->string('email')->required();
             $table->string('password')->required();

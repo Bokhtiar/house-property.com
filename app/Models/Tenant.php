@@ -48,15 +48,17 @@ class Tenant extends Model
 
     ];
 
+    /* unit easier loading reletinship */
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id', 'unit_id');
+    }
+
     /* property */
     public function property()
     {
         return $this->belongsTo(Property::class, 'property_id', 'property_id');
     }
 
-    /* unit */
-    public function unit()
-    {
-        return $this->belongsTo(Unit::class, 'unit_id', 'unit_id');
-    }
+    
 }
