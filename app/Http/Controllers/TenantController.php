@@ -6,6 +6,7 @@ use Image;
 use App\Models\Property;
 use App\Models\Tenant;
 use App\Models\Unit;
+use App\Services\TenantServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,12 @@ class TenantController extends Controller
      */
     public function index()
     {
-
+        try {
+            $tenants = TenantServices::TenantList();
+            return view('modules.tenant.index', compact('tenants'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
