@@ -79,16 +79,11 @@ Route::prefix('tenant')->group(function () {
  
     /*property third step*/ 
     Route::get('/third/step', [TenantController::class, 'third_step']);
-    // Route::post('/third/step/store', [PropertyController::class, 'third_step_store']);
+    Route::post('/third/step/store', [TenantController::class, 'third_step_store']);
     // Route::get('/third/step/edit/{id}', [PropertyController::class, 'third_step_edit']);
     // Route::put('/third/step/update/{id}', [PropertyController::class, 'third_step_update']);
 
-    /*property fourth step*/ 
-    Route::get('/fourth/step', [PropertyController::class, 'fourth_step']);
-    Route::post('/fourth/step/store', [PropertyController::class, 'fourth_step_store']);
-    Route::get('/fourth/step/edit/{id}', [PropertyController::class, 'fourth_step_edit']);
-    Route::put('/fourth/step/update/{id}', [PropertyController::class, 'fourth_step_update']);
-
+    
     /* destroy */
     Route::get('/destroy/{id}', [PropertyController::class, 'destroy']);
     

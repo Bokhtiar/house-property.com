@@ -43,6 +43,7 @@ class Tenant extends Model
         'late_fee',
         'incident_recipt',
         'payment_due_on_date',
+        'image',
         'document'
 
 

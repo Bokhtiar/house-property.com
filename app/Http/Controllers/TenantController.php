@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Models\Property;
 use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TenantController extends Controller
 {
@@ -33,6 +35,11 @@ class TenantController extends Controller
     public function first_step()
     {
         try {
+            session()->forget('tenant_id');
+            session()->forget('tenant_first_step_value');
+            session()->forget('tenant_second_step_value');
+            session()->forget('tenant_third_step_value');
+
             return view('modules.tenant.first_step_createUpdate');
         } catch (\Throwable $th) {
             throw $th;
@@ -163,12 +170,80 @@ class TenantController extends Controller
     public function third_step()
     {
         try {
-            dd(session()->get('tenant_second_step_value'));
+            return view('modules.tenant.third_step_createUpdate');
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
+
+    public function third_step_store(Request $request)
+    {
+        try {
+            if (empty(session()->get('tenant_third_step_value'))) {
+                $tenant_id = session()->get('tenant_id');
+                $tenant = Tenant::find($tenant_id);
+
+                // /*tenant image */
+                $image = Image::make($request->file('image'));
+                $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                $destinationPath = public_path('images/');
+                $image->save($destinationPath . $imageName);
+                $tenant->image = $imageName;
+
+                // document pdf
+                $image = $request->file('document');
+                if ($image) {
+                    $image_name = Str::random(20);
+                    $ext = strtolower($image->getClientOriginalExtension());
+                    $image_full_name = $image_name . '.' . $ext;
+                    $upload_path = 'document/';
+                    $document_url = $upload_path . $image_full_name;
+                    $success = $image->move($upload_path, $image_full_name);
+                    if ($success) {
+                        $tenant['document'] = $document_url;
+                    }
+                }
+
+                $tenant->save();
+                session()->put('tenant_third_step_value', $tenant);
+                session()->put('tenant_id', $tenant_id);
+                return redirect()->route('tenant.index')->with('success', 'Tenant information saved');
+            } else {
+                $tenant_id = session()->get('tenant_id');
+                $tenant = Tenant::find($tenant_id);
+
+                // /*tenant image */
+                $image = Image::make($request->file('image'));
+                $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+                $destinationPath = public_path('images/');
+                $image->save($destinationPath . $imageName);
+                $tenant->image = $imageName;
+
+                // document pdf
+
+                $image = $request->file('document');
+                if ($image) {
+                    $image_name = Str::random(20);
+                    $ext = strtolower($image->getClientOriginalExtension());
+                    $image_full_name = $image_name . '.' . $ext;
+                    $upload_path = 'document/';
+                    $document_url = $upload_path . $image_full_name;
+                    $success = $image->move($upload_path, $image_full_name);
+                    if ($success) {
+                        $tenant['document'] = $document_url;
+                    }
+                }
+
+                $tenant->save();
+                session()->put('tenant_second_step_value', $tenant);
+                session()->put('tenant_id', $tenant_id);
+                return redirect()->route('tenant.index')->with('success', 'Tenant information saved');
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
 
     /**

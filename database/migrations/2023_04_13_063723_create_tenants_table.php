@@ -45,6 +45,7 @@ class CreateTenantsTable extends Migration
             $table->integer('incident_recipt')->nullable();
             $table->string('payment_due_on_date')->nullable();
             $table->string('document')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
