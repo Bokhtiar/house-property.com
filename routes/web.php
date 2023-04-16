@@ -67,6 +67,7 @@ Route::resource('tenant', TenantController::class);
 Route::prefix('tenant')->group(function () {
     /*tenent first step*/ 
     Route::get('/first/step', [TenantController::class, 'first_step']);
+    Route::get('prev/first/step', [TenantController::class, 'first_step_prev']);
     Route::get('/first/step/prev', [TenantController::class, 'first_step_prev']);
     Route::post('/first/step/store', [TenantController::class, 'first_step_store']);
     // Route::put('/first/step/update/{id}', [PropertyController::class, 'first_step_update']);

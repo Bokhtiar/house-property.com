@@ -18,7 +18,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -46,6 +46,15 @@ class TenantController extends Controller
         }
     }
 
+    public function first_step_prev()
+    {
+        try {
+            $edit = session()->get('tenant_first_step_value');
+            return view('modules.tenant.first_step_createUpdate', compact('edit'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
 
     /* Show the form for creating a new resource first step store. */
@@ -114,9 +123,10 @@ class TenantController extends Controller
     public function second_step()
     {
         try {
+            $edit = session()->get('tenant_second_step_value');
             $properties = Property::all();
             $units = Unit::all();
-            return view('modules.tenant.second_step_createUpdate', compact('properties', 'units'));
+            return view('modules.tenant.second_step_createUpdate', compact('properties', 'units', 'edit'));
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -59,6 +59,7 @@
                 'name' => 'Tenant information save',
             ])
             @endcomponent
+            <a href="{{url('tenant/second/step')}}">Prev</a>
         </div>
 
     </section>
