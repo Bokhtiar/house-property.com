@@ -41,14 +41,16 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-10 col-lg-10">
-            <img id="output" src="/images/{{ @$edit->image }}" style=" height:130px; width:230px;">
+            <img id="output" src="/images/{{ @$edit ?? @$update->image }}" style=" height:130px; width:230px;">
         </div>
 
 
         {{-- pdf --}}
         <div class="form-group">
             <label>Select pdf document</label>
-            <input type="file" required name="document" class="form-control">
+            <input type="file" name="document" class="form-control">
+
+            <a href="" download="">{{ @$edit ?? @$update->document }}</a>
         </div>
 
 
@@ -59,7 +61,12 @@
                 'name' => 'Tenant information save',
             ])
             @endcomponent
-            <a href="{{url('tenant/second/step')}}">Prev</a>
+            @if (@$update)
+                <a href="{{ url('tenant/second/step/edit', @$update->tenant_id) }}">prev</a>
+            @else
+                <a href="{{ url('tenant/second/step') }}">prev</a>
+            @endif
+            
         </div>
 
     </section>

@@ -9,7 +9,7 @@
 {{-- bradcrumbs --}}
 @component('components.bread-crumbs', [
     'pageTitle' => 'Property List',
-    'anotherPageIcon' => 'bi bi-add',
+    'anotherPageIcon' => 'bi bi-plus',
     'anotherPageUrl' => 'property.create',
 ])
 @endcomponent
@@ -28,24 +28,23 @@
                     <div class="card px-3 py-3" style="width: 22rem;">
                         {{-- name image email --}}
 
-                        <img src="/images/{{ $item->image }}" height="70px" width="80px" class="mx-auto  rounded-full"
+                        <img src="/images/{{ $item->image }}" height="70px" width="70px" class="mx-auto  rounded-full"
                             alt="">
-                        <div class="mx-auto">
-                            <span>{{ $item->first_name . ' ' . $item->last_name }}</span><br>
-                            <span>{{ $item->contact_number }}</span>
-                            <p class="mx-auto">
-                                <a href="" class="btn btn-sm btn-success"><i
+                      
+                            <span class="text-center">{{ $item->first_name . ' ' . $item->last_name }}</span>
+                            <span class="text-center">{{ $item->contact_number }}</span>
+                            <p class="text-center">
+                                <a href="{{url('tenant/first/step/edit', $item->tenant_id)}}" class="btn btn-sm btn-success"><i class="ri-edit-box-fill"></i></a>
+                                <a href="" class="btn btn-sm btn-danger"><i
                                         class="ri-delete-bin-6-fill"></i></a>
-                                <a href="" class="btn btn-sm btn-danger"><i class="ri-edit-box-fill"></i></a>
+                                
                             </p>
-                        </div>
+             
 
 
 
                         {{-- soft information --}}
                         <div class=" my-3">
-
-
                             <p class="flex justify-between items-center gap-3 bg-gray-100 py-2 px-2 rounded">
                                 <span class="text-gray-500">Email: </span>
                                 <span class="text-gray-500">{{ $item->email }}</span>

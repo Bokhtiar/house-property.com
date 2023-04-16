@@ -45,7 +45,7 @@
                     'field_id' => 'property_id',
                     'label' => 'Select property',
                     'field_name' => 'name',
-                    'value' => @$edit ? @$edit->property_id : '',
+                    'value' => @$edit ? @$edit->property_id : @$update->property_id,
                 ])
                 @endcomponent
             </div>
@@ -60,7 +60,7 @@
                     'field_id' => 'unit_id',
                     'label' => 'Select property',
                     'field_name' => 'unit_name',
-                    'value' => @$edit ? @$edit->unit_id : '',
+                    'value' => @$edit ? @$edit->unit_id : @$update->unit_id,
                 ])
                 @endcomponent
             </div>
@@ -178,7 +178,12 @@
         ])
         @endcomponent
 
+        @if (@$update)
+        <a href="{{url('tenant/first/step/edit',@$update->tenant_id )}}">prev</a>    
+        @else 
         <a href="{{url('tenant/prev/first/step')}}">prev</a>
+        @endif
+        
 
     </div>
 
