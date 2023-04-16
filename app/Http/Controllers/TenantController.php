@@ -39,23 +39,12 @@ class TenantController extends Controller
         }
     }
 
-    // $tenant->property_id = $request->property_id;
-    // $tenant->unit_id = $request->unit_id;
-    // $tenant->lease_start_date = $request->lease_start_date;
-    // $tenant->lease_end_date = $request->lease_end_date;
-    // $tenant->general_rent = $request->general_rent;
-    // $tenant->security_deposit = $request->security_deposit;
-    // $tenant->late_fee = $request->late_fee;
-    // $tenant->incident_recipt = $request->incident_recipt;
-    // $tenant->payment_due_on_date = $request->payment_due_on_date;
-    // $tenant->document = $request->document;
+
 
     /* Show the form for creating a new resource first step store. */
     public function first_step_store(Request $request)
     {
         try {
-
-
             if (empty(session()->get('tenant_first_step_value'))) {
                 $tenant = new Tenant;
                 $tenant->first_name = $request->first_name;
@@ -115,24 +104,70 @@ class TenantController extends Controller
         }
     }
 
-
-
-
-
-
     public function second_step()
     {
         try {
             $properties = Property::all();
             $units = Unit::all();
-            return view('modules.tenant.second_step_createUpdate', compact('properties','units'));
-            
+            return view('modules.tenant.second_step_createUpdate', compact('properties', 'units'));
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
 
+
+    public function second_step_store(Request $request)
+    {
+        try {
+            if (empty(session()->get('tenant_second_step_value'))) {
+                $tenant_id = session()->get('tenant_id');
+                $tenant = Tenant::find($tenant_id);
+                $tenant->property_id = $request->property_id;
+                $tenant->unit_id = $request->unit_id;
+                $tenant->lease_start_date = $request->lease_start_date;
+                $tenant->lease_end_date = $request->lease_end_date;
+                $tenant->general_rent = $request->general_rent;
+                $tenant->security_deposit = $request->security_deposit;
+                $tenant->late_fee = $request->late_fee;
+                $tenant->incident_recipt = $request->incident_recipt;
+                $tenant->payment_due_on_date = $request->payment_due_on_date;
+                $tenant->save();
+                session()->put('tenant_second_step_value', $tenant);
+                session()->put('tenant_id', $tenant_id);
+                return redirect('tenant/third/step')->with('success', 'Tenant information saved');
+            } else {
+                $tenant_id = session()->get('tenant_id');
+                $tenant = Tenant::find($tenant_id);
+                $tenant->property_id = $request->property_id;
+                $tenant->unit_id = $request->unit_id;
+                $tenant->lease_start_date = $request->lease_start_date;
+                $tenant->lease_end_date = $request->lease_end_date;
+                $tenant->general_rent = $request->general_rent;
+                $tenant->security_deposit = $request->security_deposit;
+                $tenant->late_fee = $request->late_fee;
+                $tenant->incident_recipt = $request->incident_recipt;
+                $tenant->payment_due_on_date = $request->payment_due_on_date;
+                $tenant->save();
+                session()->put('tenant_second_step_value', $tenant);
+                session()->put('tenant_id', $tenant_id);
+                return redirect('tenant/third/step')->with('success', 'Tenant information saved');
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+    public function third_step()
+    {
+        try {
+            dd(session()->get('tenant_second_step_value'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
 
 

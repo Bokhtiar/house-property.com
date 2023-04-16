@@ -91,17 +91,6 @@
                 ])
                 @endcomponent
             </div>
-
-
-            {{-- button --}}
-            <div class="d-flex ">
-                @component('components.primary-button', [
-                    'name' => 'Tenant information save',
-                ])
-                @endcomponent
-
-            </div>
-
         </div>
     </section>
 
@@ -109,11 +98,8 @@
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
         {{-- present address --}}
         <section class="row">
-            
 
-           property information
-           
-           <h5 class="card-title px-3">Rent information</h5>
+            <h5 class="card-title px-3">Rent information</h5>
             {{-- general_rent --}}
             <div class="col-sm-12 col-md-3 col-lg-3">
                 @component('components.input', [
@@ -169,8 +155,8 @@
                 @endcomponent
             </div>
 
-             {{-- payment_due_on_date --}}
-             <div class="col-sm-12 col-md-2 col-lg-2">
+            {{-- payment_due_on_date --}}
+            <div class="col-sm-12 col-md-2 col-lg-2">
                 @component('components.input', [
                     'label' => 'Payment due on date.',
                     'type' => 'text',
@@ -184,7 +170,16 @@
 
         </section>
     </section>
-    
+
+    {{-- button --}}
+    <div class="d-flex ">
+        @component('components.primary-button', [
+            'name' => 'Tenant information save',
+        ])
+        @endcomponent
+
+    </div>
+
     </form>
 
 
