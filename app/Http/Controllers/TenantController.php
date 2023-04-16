@@ -279,9 +279,14 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show(Tenant $tenant)
+    public function show($id)
     {
-        //
+        try {
+            $show = TenantServices::TenantFindById($id);
+            return view('modules.tenant.show', compact('show'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
