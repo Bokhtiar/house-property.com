@@ -24,4 +24,13 @@ class Unit extends Model
         'incident_receipt',
         'rent_type',
     ];
+
+    public static function total_room($id){
+        $units = self::where('property_id', $id)->get();
+        $rooms = 0;
+        foreach ($units as $unit) {
+            $rooms += $unit->bedroom; 
+        }
+        return $rooms;
+    }
 }

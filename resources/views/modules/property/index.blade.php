@@ -57,17 +57,17 @@
                                 class="flex items-center justify-between px-1 bg-white border border-gray-200 rounded h-10">
                                 <p class="flex items-center gap-1 mt-3 text-gray-500 text-sm">
                                     <i class="text-gray-600 bx bx-home"></i>
-                                    <span>3 unit</span>
+                                    <span>{{$item->total_unit}} unit</span>
                                 </p>
 
                                 <p class="flex items-center gap-1 mt-3 text-gray-500 text-sm">
                                     <i class="ri-dashboard-line"></i>
-                                    <span>3 rooms</span>
+                                    <span>{{App\Models\Unit::total_room($item->property_id)}} rooms</span>
                                 </p>
 
                                 <p class="flex items-center gap-1 mt-3 text-gray-500 text-sm">
                                     <i class="bi bi-check-circle"></i>
-                                    <span>3 available</span>
+                                    <span>0 available</span>
                                 </p>
                             </div>
 

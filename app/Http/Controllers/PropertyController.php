@@ -396,7 +396,7 @@ class PropertyController extends Controller
                     ]);
                 }
                 session()->put('property_third_step_value', $items);
-                return redirect('property/fourth/step')->with('message', 'Property unit saved.');
+                return redirect('property/fourth/step/edit/'.$id)->with('message', 'Property unit saved.');
             } else {
 
                 $properties = session()->get('property_first_step_value');
@@ -531,7 +531,7 @@ class PropertyController extends Controller
 
     public function fourth_step_update(Request $request)
     {
-        //dd($request->all());
+        
         try {
             /* if third step session is empty then this condision work */
             if (empty(session()->get('property_fourth_step_value'))) {
@@ -593,7 +593,7 @@ class PropertyController extends Controller
                 return redirect()->route('property.index')->with('message', 'Property rent && charge saved.');
             }
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
 

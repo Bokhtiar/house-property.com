@@ -16,7 +16,9 @@
 
 
 
-@component('components.tenent_header')
+@component('components.tenent_header',[
+    'profile' => true,
+])
     
 @endcomponent
 
