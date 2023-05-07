@@ -45,8 +45,6 @@ class Tenant extends Model
         'payment_due_on_date',
         'image',
         'document'
-
-
     ];
 
     /* unit easier loading reletinship */

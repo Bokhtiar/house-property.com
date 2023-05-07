@@ -22,5 +22,6 @@ class Property extends Model
         'zip_code',
         'address',
         'map_link',
+  
     ];
 }

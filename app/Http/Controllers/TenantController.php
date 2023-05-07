@@ -6,8 +6,10 @@ use Image;
 use App\Models\Property;
 use App\Models\Tenant;
 use App\Models\Unit;
+use App\Models\User;
 use App\Services\TenantServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TenantController extends Controller
@@ -67,7 +69,23 @@ class TenantController extends Controller
     public function first_step_store(Request $request)
     {
         try {
+
+
+            if (User::where('email', $request->email)->first()) {
+                return redirect()->back()->with('warning', 'Already email exist');
+            }
+
             if (empty(session()->get('tenant_first_step_value'))) {
+
+                /* tenant user table added for role permission */
+                $user = User::create([
+                    'name' => $request->first_name,
+                    'email' => $request->email,
+                    'password' =>  Hash::make($request->password),
+                    'role_id' => 2,
+                    'tenant_id' => Tenant::count() + 1,
+                ]);
+
                 $tenant = new Tenant;
                 $tenant->first_name = $request->first_name;
                 $tenant->last_name = $request->last_name;
@@ -89,7 +107,9 @@ class TenantController extends Controller
                 $tenant->present_state = $request->present_state;
                 $tenant->present_city = $request->present_city;
                 $tenant->present_zip_code = $request->present_zip_code;
+                $tenant->user_id = $user->id;
                 $tenant->save();
+
                 session()->put('tenant_first_step_value', $tenant);
                 session()->put('tenant_id', $tenant->tenant_id);
                 return redirect('tenant/second/step')->with('success', 'Tenant information saved');
@@ -319,33 +339,32 @@ class TenantController extends Controller
     public function first_step_update(Request $request, $id)
     {
         try {
-            
-                $tenant = Tenant::find($id);
-                $tenant->first_name = $request->first_name;
-                $tenant->last_name = $request->last_name;
-                $tenant->contact_number = $request->contact_number;
-                $tenant->job = $request->job;
-                $tenant->age = $request->age;
-                $tenant->familly_member = $request->familly_member;
-                $tenant->email = $request->email;
-                $tenant->password = $request->password;
 
-                $tenant->p_address = $request->p_address;
-                $tenant->p_country = $request->p_country;
-                $tenant->p_state = $request->p_state;
-                $tenant->p_city = $request->p_city;
-                $tenant->p_zip_code = $request->p_zip_code;
+            $tenant = Tenant::find($id);
+            $tenant->first_name = $request->first_name;
+            $tenant->last_name = $request->last_name;
+            $tenant->contact_number = $request->contact_number;
+            $tenant->job = $request->job;
+            $tenant->age = $request->age;
+            $tenant->familly_member = $request->familly_member;
+            $tenant->email = $request->email;
+            $tenant->password = $request->password;
 
-                $tenant->present_address = $request->present_address;
-                $tenant->present_country = $request->present_country;
-                $tenant->present_state = $request->present_state;
-                $tenant->present_city = $request->present_city;
-                $tenant->present_zip_code = $request->present_zip_code;
-                $tenant->save();
-                session()->put('tenant_first_step_value', $tenant);
-                session()->put('tenant_id', $tenant->tenant_id);
-                return redirect('tenant/second/step/edit/' . $id)->with('success', 'Tenant information saved');
-            
+            $tenant->p_address = $request->p_address;
+            $tenant->p_country = $request->p_country;
+            $tenant->p_state = $request->p_state;
+            $tenant->p_city = $request->p_city;
+            $tenant->p_zip_code = $request->p_zip_code;
+
+            $tenant->present_address = $request->present_address;
+            $tenant->present_country = $request->present_country;
+            $tenant->present_state = $request->present_state;
+            $tenant->present_city = $request->present_city;
+            $tenant->present_zip_code = $request->present_zip_code;
+            $tenant->save();
+            session()->put('tenant_first_step_value', $tenant);
+            session()->put('tenant_id', $tenant->tenant_id);
+            return redirect('tenant/second/step/edit/' . $id)->with('success', 'Tenant information saved');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -380,7 +399,7 @@ class TenantController extends Controller
             $tenant->save();
             session()->put('tenant_second_step_value', $tenant);
             session()->put('tenant_id', $id);
-            return redirect('tenant/third/step/edit/'.$id)->with('success', 'Tenant information saved');
+            return redirect('tenant/third/step/edit/' . $id)->with('success', 'Tenant information saved');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -401,22 +420,22 @@ class TenantController extends Controller
     {
         try {
             $tenant = Tenant::find($id);
-           
+
 
             // /*tenant image */
-            if($request->image){
+            if ($request->image) {
                 $image = Image::make($request->file('image'));
                 $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
                 $destinationPath = public_path('images/');
                 $image->save($destinationPath . $imageName);
                 $tenant->image = $imageName;
-            }else{
+            } else {
                 $tenant->image = $tenant->image;
             }
-            
+
 
             // document pdf
-            if($request->document){
+            if ($request->document) {
                 $image = $request->file('document');
                 if ($image) {
                     $image_name = Str::random(20);
@@ -429,10 +448,10 @@ class TenantController extends Controller
                         $tenant['document'] = $document_url;
                     }
                 }
-            }else{
+            } else {
                 $tenant->document = $tenant->document;
             }
-            
+
 
             $tenant->save();
             session()->put('tenant_third_step_value', $tenant);
