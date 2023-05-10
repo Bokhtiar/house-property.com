@@ -70,9 +70,15 @@ class BillController extends Controller
      * @param  \App\Models\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function show(Bill $bill)
+    public function show($id)
     {
-        //
+        try {
+            $show = Bill::find($id);
+            $unit = Unit::where('property_id', $show->property_id)->where('unit_id', $show->unit_id)->first();
+            return view('modules.bill.show', compact('show', 'unit'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
