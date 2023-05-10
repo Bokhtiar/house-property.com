@@ -54,8 +54,9 @@
                         </a>
                     </li>
                 </ul> 
-            </li><!-- End Department Nav --> 
+            </li><!-- End property Nav --> 
 
+       
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tenant" data-bs-toggle="collapse" href="#">
@@ -74,7 +75,26 @@
                         </a>
                     </li>
                 </ul> 
-            </li><!-- End Department Nav -->
+            </li><!-- End tenant Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#bill" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Bill</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="bill" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="@route('bill.index')">
+                            <i class="bi bi-circle"></i><span>Bill</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@route('bill.create')">
+                            <i class="bi bi-circle"></i><span>Create Bill</span>
+                        </a>
+                    </li>
+                </ul> 
+            </li><!-- End tenant Nav -->
        
 
          {{-- @isset(auth()->user()->role->permission['permission']['department']['list'])

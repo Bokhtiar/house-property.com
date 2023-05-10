@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BillRequest;
 use App\Models\Bill;
+use App\Models\Property;
+use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -14,7 +18,12 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $bills = Bill::all();
+            return view('modules.bill.index', compact('bills'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -24,7 +33,13 @@ class BillController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $properties = Property::all();
+            $units = Unit::all();
+            return view('modules.bill.createUpdate', compact('properties', 'units'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -33,9 +48,20 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BillRequest $request)
     {
-        //
+        try {
+            Bill::create([
+                'property_id' => $request->property_id,
+                'unit_id' => $request->unit_id,
+                'bill_pay_date' => $request->bill_pay_date,
+                'create_at' => Auth::id(),
+                'notes' => $request->note,
+            ]);
+            return redirect()->route('bill.index')->with('success', 'bill created');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

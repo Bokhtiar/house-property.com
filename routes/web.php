@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\RoleController;
@@ -88,8 +89,12 @@ Route::prefix('tenant')->group(function () {
     
     /* destroy */
     Route::get('/destroy/{id}', [PropertyController::class, 'destroy']);
+
+
+    
     
 });
 
  
-
+/* bill */
+Route::resource('bill', BillController::class);

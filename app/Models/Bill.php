@@ -15,7 +15,7 @@ class Bill extends Model
         'property_id',
         'unit_id',
         'bill_pay_date',
-        'created_at',
+        'create_at',
         'notes',
     ];
 
