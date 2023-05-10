@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.app')
 @section('content')
 
-@section('title', 'Role List')
+@section('title', 'Property List')
 
 @section('css')
 @endsection
@@ -14,11 +14,6 @@
 ])
 @endcomponent
 <section class="section">
-
-
-
-
-
 
     <section class="card">
         <div class="row p-3">

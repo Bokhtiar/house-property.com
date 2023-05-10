@@ -412,6 +412,12 @@ class TenantController extends Controller
             $tenant->save();
             session()->put('tenant_second_step_value', $tenant);
             session()->put('tenant_id', $id);
+
+            /* tenant has assing in unit */
+            $assign_unit = Unit::where('unit_id', $request->unit_id)->where('property_id', $request->property_id)->first();
+            $assign_unit->tenant_id = session()->get('tenant_id');
+            $assign_unit->save();
+            
             return redirect('tenant/third/step/edit/' . $id)->with('success', 'Tenant information saved');
         } catch (\Throwable $th) {
             throw $th;
@@ -493,8 +499,13 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tenant $tenant)
+    public function destroy($id)
     {
-        //
+        try {
+            Tenant::find($id)->delete();
+            return redirect()->route('tenant.index')->with('info', 'Tenant Deleted.');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }
