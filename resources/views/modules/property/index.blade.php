@@ -67,7 +67,7 @@
 
                                 <p class="flex items-center gap-1 mt-3 text-gray-500 text-sm">
                                     <i class="bi bi-check-circle"></i>
-                                    <span>0 available</span>
+                                    <span>{{App\Models\Unit::total_available_room($item->property_id)}} available</span>
                                 </p>
                             </div>
 

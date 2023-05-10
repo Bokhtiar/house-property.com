@@ -23,8 +23,10 @@ class Unit extends Model
         'late_fee',
         'incident_receipt',
         'rent_type',
+        'tenant_id',
     ];
 
+    /* total room */
     public static function total_room($id){
         $units = self::where('property_id', $id)->get();
         $rooms = 0;
@@ -32,5 +34,10 @@ class Unit extends Model
             $rooms += $unit->bedroom; 
         }
         return $rooms;
+    }
+
+    /* total available room */
+    public static function total_available_room($id){
+        return self::where('property_id', $id)->where('tenant_id', null)->count();
     }
 }

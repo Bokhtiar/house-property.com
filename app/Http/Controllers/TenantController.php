@@ -178,6 +178,13 @@ class TenantController extends Controller
                 $tenant->save();
                 session()->put('tenant_second_step_value', $tenant);
                 session()->put('tenant_id', $tenant_id);
+
+
+                /* tenant has assing in unit */
+                $assign_unit = Unit::where('unit_id', $request->unit_id)->where('property_id', $request->property_id)->first();
+                $assign_unit->tenant_id = session()->get('tenant_id');
+                $assign_unit->save();
+
                 return redirect('tenant/third/step')->with('success', 'Tenant information saved');
             } else {
                 $tenant_id = session()->get('tenant_id');
@@ -194,6 +201,12 @@ class TenantController extends Controller
                 $tenant->save();
                 session()->put('tenant_second_step_value', $tenant);
                 session()->put('tenant_id', $tenant_id);
+
+                /* tenant has assing in unit */
+                $assign_unit = Unit::where('unit_id', $request->unit_id)->where('property_id', $request->property_id)->first();
+                $assign_unit->tenant_id = session()->get('tenant_id');
+                $assign_unit->save();
+
                 return redirect('tenant/third/step')->with('success', 'Tenant information saved');
             }
         } catch (\Throwable $th) {

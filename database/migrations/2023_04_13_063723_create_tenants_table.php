@@ -46,6 +46,7 @@ class CreateTenantsTable extends Migration
             $table->string('payment_due_on_date')->nullable();
             $table->string('document')->nullable();
             $table->string('image')->nullable();
+            $table->integer('tenant_id')->nullable();
             $table->timestamps();
         });
     }
