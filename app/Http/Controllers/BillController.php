@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BillRequest;
 use App\Models\Bill;
 use App\Models\Property;
+use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,8 +75,9 @@ class BillController extends Controller
     {
         try {
             $show = Bill::find($id);
-            $unit = Unit::where('property_id', $show->property_id)->where('unit_id', $show->unit_id)->first();
-            return view('modules.bill.show', compact('show', 'unit'));
+            $tenant_id = Unit::where('property_id', $show->property_id)->where('unit_id', $show->unit_id)->first(['tenant_id']);
+            $tenant = Tenant::find($tenant_id->tenant_id);
+            return view('modules.bill.show', compact('show', 'tenant'));
         } catch (\Throwable $th) {
             throw $th;
         }
