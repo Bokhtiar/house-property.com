@@ -113,7 +113,7 @@
                         </td>
                     </tr>
                 @empty
-                    <h2 class="bg-danger text-light text-center">{{ $title }} Is empty</h2>
+                    <h2 class="bg-danger text-light text-center">{{ @$title }} Is empty</h2>
                 @endforelse
             </tbody>
         </table>

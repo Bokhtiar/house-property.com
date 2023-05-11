@@ -89,9 +89,16 @@ class BillController extends Controller
      * @param  \App\Models\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bill $bill)
+    public function edit($id)
     {
-        //
+        try {
+            $edit = Bill::find($id);
+            $properties = Property::all();
+            $units = Unit::all();
+            return view('modules.bill.createUpdate', compact('properties', 'units', 'edit'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -101,9 +108,21 @@ class BillController extends Controller
      * @param  \App\Models\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bill $bill)
+    public function update(BillRequest $request,$id)
     {
-        //
+        try {
+            $bill = Bill::find($id);
+            $bill->update([
+                'property_id' => $request->property_id,
+                'unit_id' => $request->unit_id,
+                'bill_pay_date' => $request->bill_pay_date,
+                'create_at' => Auth::id(),
+                'notes' => $request->note,
+            ]);
+            return redirect()->route('bill.index')->with('success', 'bill updated');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -112,8 +131,13 @@ class BillController extends Controller
      * @param  \App\Models\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bill $bill)
+    public function destroy($id)
     {
-        //
+        try {
+            Bill::find($id)->delete();
+            return redirect()->route('bill.index')->with('info', 'bill deleted');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

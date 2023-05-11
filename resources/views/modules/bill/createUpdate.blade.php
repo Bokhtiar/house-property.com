@@ -13,7 +13,7 @@
 
     {{-- bill --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
-        @if (@$update)
+        @if (@$edit)
             <form action="@route('bill.update', @$edit->bill_id)" method="POST" enctype="multipart/form-data" class="form-group row">
                 @csrf
                 @method('PUT')
@@ -68,7 +68,7 @@
         {{-- note --}}
         <div class="col-sm-12 col-md-12 col-lg-12">
             <label for="">Bill note</label>
-            <textarea class="form-control" name="note" id="" cols="30" rows="10">{{ @$edit ? $edit->note : @$update->note }}</textarea>
+            <textarea class="form-control" name="note" id="" cols="30" rows="10">{{ @$edit ? @$edit->notes : "" }}</textarea>
         </div>
 
     </section>
