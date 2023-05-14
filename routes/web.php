@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\MaintainerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\RoleController;
@@ -73,28 +74,23 @@ Route::prefix('tenant')->group(function () {
     Route::post('/first/step/store', [TenantController::class, 'first_step_store']);
     Route::get('/first/step/edit/{id}', [TenantController::class, 'first_step_edit']);
     Route::put('/first/step/update/{id}', [TenantController::class, 'first_step_update']);
-
     /*property second step*/ 
     Route::get('/second/step', [TenantController::class, 'second_step']);
     Route::post('/second/step/store', [TenantController::class, 'second_step_store']);
     Route::get('/second/step/edit/{id}', [TenantController::class, 'second_step_edit']);
     Route::put('/second/step/update/{id}', [TenantController::class, 'second_step_update']);
- 
     /*property third step*/ 
     Route::get('/third/step', [TenantController::class, 'third_step']);
     Route::post('/third/step/store', [TenantController::class, 'third_step_store']);
     Route::get('/third/step/edit/{id}', [TenantController::class, 'third_step_edit']);
     Route::put('/third/step/update/{id}', [TenantController::class, 'third_step_update']);
-
-    
     /* destroy */
     Route::get('/destroy/{id}', [PropertyController::class, 'destroy']);
-
-
-    
-    
 });
 
  
 /* bill */
 Route::resource('bill', BillController::class);
+
+/* maintainer */
+Route::resource('maintainer', MaintainerController::class);

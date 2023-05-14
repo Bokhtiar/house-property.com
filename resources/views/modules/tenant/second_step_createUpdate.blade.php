@@ -36,6 +36,7 @@
     {{-- property select && unit select --}}
     <section class="bg-white py-3 my-3 px-4 rounded-lg shadow">
         <div class="row">
+            
             {{-- property name --}}
             <div class="col-sm-12 col-md-6 col-lg-6">
                 @component('components.select', [
